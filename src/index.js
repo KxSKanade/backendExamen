@@ -1,14 +1,17 @@
-// src/index.js
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');  // <--- Importar cors
 const app = express();
 const productRoutes = require('./routes/productRoutes');
 const logger = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
 
 // Middlewares globales
-app.use(express.json());         // Para parsear JSON
-app.use(logger);                 // Logging de requests
+app.use(express.json());
+app.use(cors({
+  origin: 'https://practica02-o6gy.onrender.com'  // <--- Aquí pones el dominio de tu frontend
+})); 
+app.use(logger);
 
 // Rutas
 app.use('/api/products', productRoutes);
